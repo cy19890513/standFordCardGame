@@ -2,84 +2,79 @@
 //  CardGameViewController.m
 //  Matchismo
 //
-//  Created by Yang Chen on 8/5/14.
-//  Copyright (c) 2014 Yang Chen. All rights reserved.
+//  Created by Martin Mandl on 02.11.13.
+//  Copyright (c) 2013 m2m server software gmbh. All rights reserved.
 //
 
 #import "CardGameViewController.h"
+#import "Deck.h"
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 
 @interface CardGameViewController ()
 
-@property (nonatomic) int flipCount;
-@property (nonatomic, strong) Deck* deck;
-@property (strong,nonatomic) CardMatchingGame *game;
+@property (nonatomic, strong) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-
-@property (nonatomic) int gameType;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *modeSelector;
 
 @end
 
 @implementation CardGameViewController
 
-
-
-
-
-
-
-
-
-
--(CardMatchingGame *) game{
-    if(!_game){ _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];}
+- (CardMatchingGame *)game
+{
+    if (!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                                  usingDeck:[self createDeck]];
+        [self changeModeSelector:self.modeSelector];
+    }
     return _game;
 }
 
-
-
--(Deck *) createDeck{
-    
+- (Deck *)createDeck
+{
     return [[PlayingCardDeck alloc] init];
 }
-
-
-
-- (IBAction)gameReDeal:(UIButton *)sender {
-    _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    
+- (IBAction)touchDealButton:(UIButton *)sender {
+    self.game = nil;
     [self updateUI];
 }
 
+- (IBAction)changeModeSelector:(UISegmentedControl *)sender {
+    self.game.maxMatchingCards = [[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] integerValue];
+}
 
-- (IBAction)touchCardButton:(UIButton *)sender {
-    
-    int chosenButtonindex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonindex];
+- (IBAction)touchCardButton:(UIButton *)sender
+{
+    int cardIndex = [self.cardButtons indexOfObject:sender];
+    [self.game chooseCardAtIndex:cardIndex];
     [self updateUI];
+}
+
+- (void)updateUI
+{
+    for (UIButton *cardButton in self.cardButtons) {
+        int cardIndex = [self.cardButtons indexOfObject:cardButton];
+        Card *card = [self.game cardAtIndex:cardIndex];
+        [cardButton setTitle:[self titleForCard:card]
+                    forState:UIControlStateNormal];
+        [cardButton setBackgroundImage:[self backgroundImageForCard:card]
+                              forState:UIControlStateNormal];
+        cardButton.enabled = !card.matched;
     }
-
--(void)updateUI{
-    for(UIButton *cardButton in self.cardButtons){
-        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        Card *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        [cardButton setBackgroundImage:[self backgroundImageForCard:card]forState:UIControlStateNormal];
-        cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",self.game.score];
-    }
-    
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
--(NSString *)titleForCard:(Card *)card{
-    return card.isChosen ? card.contents: @"";
+- (NSString *)titleForCard:(Card *)card
+{
+    return card.chosen ? card.contents : @"";
 }
 
--(UIImage *)backgroundImageForCard:(Card *)card{
-    return [UIImage imageNamed: card.isChosen? @"cardfront": @"cardback"];
+- (UIImage *)backgroundImageForCard:(Card *)card
+{
+    return [UIImage imageNamed:card.chosen ? @"cardfront" : @"cardback"];
 }
-
-
 
 @end

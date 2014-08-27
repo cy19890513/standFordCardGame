@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "682D6D851991992500DEB078"
+               BlueprintIdentifier = "5B76AB4F18258B7F00B30B2C"
                BuildableName = "Matchismo.app"
                BlueprintName = "Matchismo"
                ReferencedContainer = "container:Matchismo.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "682D6DA61991992500DEB078"
+               BlueprintIdentifier = "5B76AB7018258B8000B30B2C"
                BuildableName = "MatchismoTests.xctest"
                BlueprintName = "MatchismoTests"
                ReferencedContainer = "container:Matchismo.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "682D6D851991992500DEB078"
+            BlueprintIdentifier = "5B76AB4F18258B7F00B30B2C"
             BuildableName = "Matchismo.app"
             BlueprintName = "Matchismo"
             ReferencedContainer = "container:Matchismo.xcodeproj">
@@ -61,7 +61,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "682D6D851991992500DEB078"
+            BlueprintIdentifier = "5B76AB4F18258B7F00B30B2C"
             BuildableName = "Matchismo.app"
             BlueprintName = "Matchismo"
             ReferencedContainer = "container:Matchismo.xcodeproj">
@@ -79,7 +79,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "682D6D851991992500DEB078"
+            BlueprintIdentifier = "5B76AB4F18258B7F00B30B2C"
             BuildableName = "Matchismo.app"
             BlueprintName = "Matchismo"
             ReferencedContainer = "container:Matchismo.xcodeproj">
